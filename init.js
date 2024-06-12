@@ -33,12 +33,23 @@ function next()
     current_step++;
 }
 
+function play()
+{
+    if(current_step==7)
+        return;
+
+    setTimeout(function(){
+        next();
+        play();
+    }, 4000);    
+}
+
 function init()
 {
     cinta_trabajo = document.getElementById("cinta_trabajo");
 
-    let button_next = document.getElementById("button_next");
-    button_next.onclick = next;
+    let button_pĺay = document.getElementById("button_play");
+    button_pĺay.onclick = play;
 
     let button_iniciar = document.getElementById("button_iniciar");
     button_iniciar.onclick = iniciar;
