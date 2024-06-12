@@ -11,7 +11,7 @@ let current_step = 0;
 let palabra;
 let matched = true;
 let is_over = false;
-
+let times = [];
 function next()
 {
     switch(current_step)
@@ -33,15 +33,27 @@ function next()
     current_step++;
 }
 
+function calc_times()
+{
+    times[0] = 1500;
+    times[1] = (palabra.length+2)*500;
+    times[2] = ((palabra.length/2)+2)*500;
+    times[3] = 3500;
+    times[4] = 3500;
+    times[5] = 1500;
+    times[6] = 0;
+}
+
 function play()
 {
+    let time = times[current_step];
     if(current_step==7)
         return;
+    next();
 
     setTimeout(function(){
-        next();
         play();
-    }, 4000);    
+    }, time);    
 }
 
 function init()
@@ -74,6 +86,7 @@ function iniciar()
     empty = ' '.repeat(palabra.length);
     fill_cinta(celdas_entrada, cinta_entrada, palabra);
     fill_cinta(celdas_salida, cinta_salida, empty);
+    calc_times();
 }
 
 function fill_cinta(array, cinta, palabra)
@@ -104,11 +117,26 @@ function create_cell(cinta, e, i)
 
 function set_celda(value, cell)
 {
-    cell.innerText = value;
+    setTimeout(function(){
+        cell.innerText = value;
+        cell.classList.add("orange");
+    }, 500);
+
+    setTimeout(function(){
+        cell.classList.remove("orange");
+    }, 1000);
 }
 
 function contar(to, cell)
 {
+    setTimeout(function(){
+        cell.classList.add("orange");
+    }, 500);
+
+    setTimeout(function(){
+        cell.classList.remove("orange");
+    }, 500*(to+1));
+
     for(let i=0; i<to; i++)
     {
         setTimeout(function(){
@@ -117,10 +145,10 @@ function contar(to, cell)
         }, 500*(i+1));
 
         setTimeout(function(){
-            for(let j=0; j<to; j++)
                 celdas_entrada[i].classList.remove("pointed");
         }, 500*(to+1));
     }
+
 }
 
 function point(cell1, cell2)
