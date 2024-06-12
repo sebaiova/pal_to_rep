@@ -38,7 +38,7 @@ function init()
     cinta_trabajo = document.getElementById("cinta_trabajo");
 
     let button_next = document.getElementById("button_next");
-    button_next.onclick = current_stepnext;
+    button_next.onclick = next;
 
     let button_iniciar = document.getElementById("button_iniciar");
     button_iniciar.onclick = iniciar;
